@@ -1,13 +1,9 @@
 <template>
   <div class="main">
 
-    <nav class="sticky top-0 bg-gray-800">
-      <div class="max-w-7xl mx-auto">
-        <div class="flex items-center justify-between h-16">
-          <a href="#" class="text-cyan-400 text-3xl font-bold tracking-widest text-decoration-none"
-            @click.prevent="scrollTo('home')">
-            Portfolio
-          </a>
+    <nav class="sticky top-0 " style="z-index:10;background-color:#1f242d">
+      <div class="">
+        <div class="flex items-center justify-end h-16 pt-2 mx-5">
 
           <button class="lg:hidden text-white focus:outline-none" @click="isOpen = !isOpen">
             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -17,7 +13,7 @@
 
           <ul class="hidden lg:flex space-x-6">
             <li v-for="item in navs" :key="item.id">
-              <a href="#" class="text-white hover:text-cyan-400 transition text-decoration-none"
+              <a href="#" class="text-white hover:text-cyan-400 transition text-decoration-none font-bold"
                 @click.prevent="scrollTo(item.id)">
                 {{ item.label }}
               </a>
@@ -40,12 +36,12 @@
 
 
     <!-- HOME -->
-    <section class="home" id="home">
+    <section class="home vh-90" id="home">
       <div class="container">
-        <div class="row align-items-center pt-3">
-          <div class="col-md-6 text-white">
-            <h1 class="fw-bold">Min Thu Kha</h1>
-            <h3 class="highlight">Web Developer</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 place-items-center pt-5">
+          <div class="p-10 text-white justify-self-center">
+            <h1 class="fw-bold tracking-wider">Min Thu Kha</h1>
+            <h3 class="highlight tracking-wide fw-bold" style="color:#FF8C32">Web Developer</h3>
 
             <div class="social-media">
               <a href="mailto:minthukha25122003@gmail.com">
@@ -61,8 +57,8 @@
             <a href="/cv/MinThuKha.pdf" class="btn mt-3">Download CV</a>
           </div>
 
-          <div class="col-md-6 flex justify-center">
-            <img src="/images/Me.png" class="profile-img" />
+          <div class="hidden md:flex justify-center">
+            <img src="/images/cartoon.png" class="profile-img" />
           </div>
         </div>
       </div>
@@ -78,7 +74,7 @@
               style="opacity: 1">
 
               <image x="0" y="-20" width="100%" height="100%" clip-path="url(#shape)"
-                href="/images/Me.jpg?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=880&amp;q=80"
+                href="/images/Me.png?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=880&amp;q=80"
                 preserveAspectRatio="none"></image>
 
               <defs>
@@ -101,16 +97,16 @@
           <div class="col-md-6">
             <div class="about-content">
               <div class="content-header d-md-flex position-relative mt-5 ">
-                <h1 class="text-center text-md-start text-lg-start">Who am I?</h1>
+                <h1 class="text-center text-md-start text-lg-start" style="color:#FF8C32;">Who am I?</h1>
 
               </div>
-              <p style="line-height:30px;" class="mt-5">
+              <h5 style="line-height:30px;" class="mt-3">
                 I am a passionate web developer with 2 years of hands-on experience building dynamic web applications. I
                 specialize in Laravel for backend development and Vue.js for frontend development, creating responsive,
                 user-friendly interfaces. I have solid experience designing and consuming RESTful APIs, enabling
                 seamless communication between client and server. I enjoy tackling challenging problems and continuously
                 improving my skills to deliver efficient and maintainable code.
-              </p>
+              </h5>
             </div>
           </div>
 
@@ -121,22 +117,32 @@
     <!-- SKILLS -->
     <section class="my-skills my-5" id="my-skills">
       <div class="container">
-        <h1 class="text-center text-white mb-5">My Skills</h1>
+        <h1 class="text-center  mb-5" style="color:#FF8C32">My Skills</h1>
 
-        <div class="row flex justify-content-center">
-          <div v-for="skill in skills" :key="skill.name" class="col-md-1 mb-4">
-            <img :src="skill.icon" class="skill-img" />
+        <div class="skill-wrapper">
+          <div class="skill-track">
+            <div v-for="skill in skills" :key="skill.name" class="skill-item">
+              <img :src="skill.icon" />
+              {{ skill.name }}
+            </div>
+
+
+            <div v-for="skill in skills" :key="skill.name + '-clone'" class="skill-item">
+              <img :src="skill.icon" />
+              {{ skill.name }}
+            </div>
           </div>
         </div>
+
       </div>
     </section>
 
 
     <!-- PROJECTS -->
-    <section class="my-projects" id="my-projects">
+    <section class="my-projects " id="my-projects">
       <div class="container">
-        <h1 class="text-center text-white mb-4">My Projects</h1>
-        <p class="text-center text-white">Explore my latest web development work</p>
+        <h1 class="text-center mb-4" style="color:#FF8C32;">My Projects</h1>
+        <p class="text-center text-white text-xl">Explore my latest web development work</p>
 
         <div class="filter-buttons">
           <button class="filter-btn" :class="{ active: activeFilter === 'all' }"
@@ -156,7 +162,7 @@
 
               </div>
               <div class="card-body">
-                <h5 class="font-bold" style="color:#0ef;">{{ project.title }}</h5>
+                <h5 class="fw-bold text-white">{{ project.title }}</h5>
                 <p class="fs-6">{{ project.description }}</p>
                 <div class="useage-group d-flex flex-wrap gap-2 mb-3">
                   <button v-for="tech in project.tech" :key="tech" class="btn tech-tag">{{ tech }}</button>
@@ -164,7 +170,7 @@
                 <div class="card-footer border-0 d-flex justify-content-between p-0">
                   <a v-if="project.demo != ''" :href="project.demo" target="_blank"><button class="btn1">
                       <span v-if="project.category == 'web'">Live Demo</span>
-                      <span v-else-if="project.category == 'app'">Play Store</span>
+                      <span v-else-if="project.category == 'app'"><font-awesome-icon icon="fa-brands fa-google-play" /> Play Store</span>
                     </button></a>
                   <a v-if="project.code != ''" :href="project.code" target="_blank"><button class="btn2">
                       <font-awesome-icon icon="fa-brands fa-github" /> Code
@@ -181,7 +187,7 @@
     <!-- Contact -->
     <section class="contact" id="contact">
       <div class="container">
-        <h2 class="text-center mb-5 text-white">Contact Me</h2>
+        <h2 class="fw-bold text-center mb-5 " style="color:#FF8C32">Contact Me</h2>
 
         <div class="row justify-content-center">
           <!-- Email -->
@@ -290,21 +296,19 @@ const scrollTo = (id) => {
   background: #1f242d;
 }
 
-.home {
-  height: 80vh;
-}
+
 
 .home .btn {
   display: inline-block;
   padding: 12px 28px;
-  background-color: #0ef;
+  background-color: dark;
   border-radius: 40px;
   text-decoration: none;
   letter-spacing: 1px;
   font-weight: 700;
   font-size: 16px;
-  box-shadow: 0 0 15px #0ef;
-  color: #1f242d;
+  box-shadow: 0 0 15px #F97316;
+  color: #ffffff;
 }
 
 .home .social-media a {
@@ -318,20 +322,20 @@ const scrollTo = (id) => {
   border-radius: 50%;
   background: transparent;
   text-decoration: none;
-  border: 2px solid #0ef;
-  color: #0ef;
+  border: 2px solid #FF8C32;
+  color: #FF8C32;
   margin: 20px 15px 30px 0;
 }
 
 .home .social-media a:hover {
-  background-color: #0ef;
-  box-shadow: 0 0 20px #0ef;
+  background-color: #FF8C32;
+  box-shadow: 0 0 20px #FF8C32;
   color: #1f242d;
 }
 
 .logo {
   letter-spacing: 5px;
-  color: #0ef;
+  color: #FF8C32;
   font-weight: bold;
   cursor: pointer;
 }
@@ -347,19 +351,19 @@ const scrollTo = (id) => {
 .about .about-content .btn {
   display: inline-block;
   padding: 12px 28px;
-  background-color: #0ef;
+  background-color: #FF8C32;
   border-radius: 40px;
   text-decoration: none;
   letter-spacing: 1px;
   font-weight: 700;
   font-size: 16px;
-  box-shadow: 0 0 15px #0ef;
+  box-shadow: 0 0 15px #FF8C32;
   color: #1f242d;
 }
 
 .about .about-content .btn:hover {
   background-color: #1f242d;
-  box-shadow: 0 0 20px #0ef;
+  box-shadow: 0 0 20px #FF8C32;
   color: #fff;
 }
 
@@ -383,18 +387,58 @@ const scrollTo = (id) => {
 
 
 .highlight {
-  color: #0ef;
+  color: #FF8C32;
 }
 
 .profile-img {
-  width: 400px;
+  width: 500px;
 }
 
 .social-media a {
-  color: #0ef;
+  color: #FF8C32;
   font-size: 20px;
   margin-right: 15px;
 }
+
+/* Skills */
+
+.skill-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+
+.skill-track {
+  display: flex;
+  width: max-content;
+  animation: scroll 15s linear infinite;
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  border: 1px solid #fff;
+  color: white;
+  border-radius: 6px;
+  padding: 6px 12px;
+  margin: 0 6px;
+  white-space: nowrap;
+}
+
+.skill-item img {
+  width: 20px;
+  margin-right: 6px;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 
 .skill-img {
   width: 80px;
@@ -409,16 +453,15 @@ const scrollTo = (id) => {
 .my-projects .filter-buttons {
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
 .my-projects .filter-btn {
-  padding: 12px 30px;
+  padding: 8px 20px;
   background: rgba(255, 255, 255, 0.2);
   color: white;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 25px;
+  border-radius: 10px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
@@ -428,18 +471,16 @@ const scrollTo = (id) => {
   letter-spacing: 1px;
 }
 
-.my-projects .filter-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
+
 
 .filter-btn.active {
-  background: #0ef;
+  background: #FF8C32;
   color: white;
   border-color: white;
   box-shadow: 0 5px 20px rgba(255, 255, 255, 0.4);
 }
+
+
 
 
 .my-projects .img-wrapper {
@@ -486,37 +527,35 @@ const scrollTo = (id) => {
   font-size: 14px;
   height: 27px;
   line-height: 10px;
-  background: rgba(255, 255, 255, 0.2);
+  background-color: #1f242d;
+  border:0px;
   backdrop-filter: blur(10px);
-  border: 1px solid #0ef;
-  border-radius: 10px;
+  border-radius: 20px;
   color: #fff;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   margin: 2px;
 }
 
 .my-projects .card-footer {
   padding: 0px;
   margin-top: 10px;
+  background-color: #778da9;
 }
 
 .my-projects .card-footer .btn1 {
   font-size: 14px;
   padding: 5px 15px;
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid #0ef;
+  background-color:#1f242d;
   backdrop-filter: blur(10px);
-  border-radius: 10px;
+  border-radius: 20px;
+  border:0px;
   color: #fff;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   margin: 0 3px;
 }
 
 .my-projects .card-footer .btn2 {
   font-size: 15px;
   padding: 5px 15px;
-  background-color: transparent;
-  border: 1px solid #0ef;
+  background-color: #1f242d;
   border-radius: 10px;
   color: #fff;
   margin: 0 3px;
@@ -528,7 +567,7 @@ const scrollTo = (id) => {
 }
 
 .my-projects .slick-dots li button::before {
-  color: #0ef;
+  color: #FF8C32;
 }
 
 .my-projects .slick-dots .slick-active button::before {
@@ -550,12 +589,12 @@ const scrollTo = (id) => {
 
 .contact-card:hover {
   transform: translateY(-12px);
-  box-shadow: 0 20px 40px rgba(34, 211, 238, 0.35);
+  box-shadow: 0 10px 10px #FF8C32;
 }
 
 .contact-icon {
   font-size: 42px;
-  color: #22d3ee;
+  color: #FF8C32;
   margin-bottom: 18px;
 }
 
@@ -572,7 +611,6 @@ const scrollTo = (id) => {
 }
 
 .contact-link:hover {
-  color: #22d3ee;
+  color: #FF8C32;
 }
-
 </style>
