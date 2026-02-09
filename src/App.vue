@@ -97,7 +97,7 @@
           <div class="col-md-6">
             <div class="about-content">
               <div class="content-header d-md-flex position-relative mt-5 ">
-                <h1 class="text-center text-md-start text-lg-start" style="color:#FF8C32;">Who am I?</h1>
+                <h1 class="text-center text-md-start text-lg-start fw-bold" style="color:#FF8C32;">Who am I?</h1>
 
               </div>
               <h5 style="line-height:30px;" class="mt-3">
