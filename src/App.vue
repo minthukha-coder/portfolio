@@ -26,7 +26,7 @@
       <div v-if="isOpen" class="lg:hidden px-4 pb-4">
         <ul class="space-y-3">
           <li v-for="item in navs" :key="item.id">
-            <a href="#" class="block text-white hover:text-cyan-400" @click.prevent="handleNavClick(item.id)">
+            <a href="#" class="block text-white text-decoration-none" @click.prevent="handleNavClick(item.id)">
               {{ item.label }}
             </a>
           </li>
@@ -54,7 +54,9 @@
               </a>
             </div>
 
-            <a href="/cv/MinThuKha.pdf" class="btn mt-3">Download CV</a>
+            <a @click="downloadCv" class="btn mt-3">
+              Download CV
+            </a>
           </div>
 
           <div class="hidden md:flex justify-center">
@@ -170,7 +172,8 @@
                 <div class="card-footer border-0 d-flex justify-content-between p-0">
                   <a v-if="project.demo != ''" :href="project.demo" target="_blank"><button class="btn1">
                       <span v-if="project.category == 'web'">Live Demo</span>
-                      <span v-else-if="project.category == 'app'"><font-awesome-icon icon="fa-brands fa-google-play" /> Play Store</span>
+                      <span v-else-if="project.category == 'app'"><font-awesome-icon icon="fa-brands fa-google-play" />
+                        Play Store</span>
                     </button></a>
                   <a v-if="project.code != ''" :href="project.code" target="_blank"><button class="btn2">
                       <font-awesome-icon icon="fa-brands fa-github" /> Code
@@ -223,6 +226,9 @@
 <script setup>
 
 import { ref, computed } from 'vue'
+
+const activeFilter = ref('all')
+const isOpen = ref(false)
 const navs = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
@@ -241,14 +247,14 @@ const skills = [
   { name: 'Node.js', icon: '/images/nodejs.png' },
   { name: 'Tailwind', icon: '/images/tailwind.png' }
 ]
-const activeFilter = ref('all')
+
 
 const projects = ref([
   {
     title: 'Love Car',
     image: '/images/lovecar_image.png',
     description: 'A mobile application for car enthusiasts to find and share their love for cars. Available on Google Play Store.',
-    tech: ['Larvael', 'Vue.js', 'Tailwind'],
+    tech: ['Laravel', 'Vue.js', 'Tailwind'],
     demo: 'https://play.google.com/store/apps/details?id=com.ophir.lovecar&pcampaignid=web_share',
     code: '',
     category: 'app'
@@ -274,6 +280,25 @@ const projects = ref([
   },
 
 ])
+
+const downloadCV= () => {
+  const link = document.createElement('a')
+  link.href = '/cv/MinThuKha.pdf'
+  link.download = 'Min_Thu_Kha_CV.pdf'
+  link.click()
+}
+
+const handleNavClick = (id) => {
+  const section = document.getElementById(id)
+
+  if (section) {
+    section.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    })
+  }
+}
+
 
 const filteredProjects = computed(() => {
   if (activeFilter.value === 'all') {
@@ -528,7 +553,7 @@ const scrollTo = (id) => {
   height: 27px;
   line-height: 10px;
   background-color: #1f242d;
-  border:0px;
+  border: 0px;
   backdrop-filter: blur(10px);
   border-radius: 20px;
   color: #fff;
@@ -544,10 +569,10 @@ const scrollTo = (id) => {
 .my-projects .card-footer .btn1 {
   font-size: 14px;
   padding: 5px 15px;
-  background-color:#1f242d;
+  background-color: #1f242d;
   backdrop-filter: blur(10px);
   border-radius: 20px;
-  border:0px;
+  border: 0px;
   color: #fff;
   margin: 0 3px;
 }
