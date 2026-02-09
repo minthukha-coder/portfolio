@@ -54,7 +54,7 @@
               </a>
             </div>
 
-            <a @click="downloadCv" class="btn mt-3">
+            <a @click="downloadCV" class="btn mt-3">
               Download CV
             </a>
           </div>
@@ -281,7 +281,7 @@ const projects = ref([
 
 ])
 
-const downloadCV= () => {
+const downloadCV = () => {
   const link = document.createElement('a')
   link.href = '/cv/MinThuKha.pdf'
   link.download = 'Min_Thu_Kha_CV.pdf'
