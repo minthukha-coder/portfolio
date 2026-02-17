@@ -13,8 +13,11 @@
 
           <ul class="hidden lg:flex space-x-6">
             <li v-for="item in navs" :key="item.id">
-              <a href="#" class="text-white hover:text-cyan-400 transition text-decoration-none font-bold"
-                @click.prevent="scrollTo(item.id)">
+              <a href="#"
+ :class="[
+                'transition text-decoration-none font-bold',
+                navActive == item.id ? '!text-[#FF8C32]' : 'text-white'
+              ]" @click.prevent="scrollTo(item.id)">
                 {{ item.label }}
               </a>
             </li>
@@ -26,7 +29,10 @@
       <div v-if="isOpen" class="lg:hidden px-4 pb-4">
         <ul class="space-y-3">
           <li v-for="item in navs" :key="item.id">
-            <a href="#" class="block text-white text-decoration-none" @click.prevent="handleNavClick(item.id)">
+            <a href="#" class="block" :class="[
+                'transition text-decoration-none font-bold',
+                navActive == item.id ? '!text-[#FF8C32]' : 'text-white'
+              ]" @click.prevent="handleNavClick(item.id)">
               {{ item.label }}
             </a>
           </li>
@@ -214,6 +220,8 @@
               <p class="contact-link">09975483307</p>
             </div>
           </div>
+
+        
         </div>
       </div>
     </section>
@@ -229,6 +237,7 @@ import { ref, computed } from 'vue'
 
 const activeFilter = ref('all')
 const isOpen = ref(false)
+const navActive = ref('home')
 const navs = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
@@ -290,13 +299,13 @@ const downloadCV = () => {
 
 const handleNavClick = (id) => {
   const section = document.getElementById(id)
-
   if (section) {
     section.scrollIntoView({
       behavior: 'smooth',
       block: 'start'
     })
   }
+  navActive.value = id;
 }
 
 
@@ -313,6 +322,7 @@ const filterProjects = (category) => {
 
 const scrollTo = (id) => {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  navActive.value = id;
 }
 </script>
 
@@ -600,8 +610,7 @@ const scrollTo = (id) => {
 }
 
 .contact {
-  padding: 90px 0;
-  background: linear-gradient(135deg, #020617, #0f172a);
+  padding: 50px 0;
 }
 
 .contact-card {
