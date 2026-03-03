@@ -278,6 +278,16 @@ const projects = ref([
     category: 'web'
   },
 
+    {
+    title: 'Learning Management System',
+    image: '/images/sayazaw.png',
+    description: 'A mobile-friendly learning platform delivering video lessons, deployed on DigitalOcean.',
+    tech: ['HTML', 'CSS', 'Laravel', 'Vue.js', 'Tailwind'],
+    demo: 'https://mathssayazaw.online/',
+    code: '',
+    category: 'web'
+  },
+
   {
     title: 'Sephora Ecommerce Website',
     image: '/images/sephora.png',
@@ -293,7 +303,7 @@ const projects = ref([
 const downloadCV = () => {
   const link = document.createElement('a')
   link.href = '/cv/MinThuKha.pdf'
-  link.download = 'Min_Thu_Kha_CV.pdf'
+  link.download = 'Min_Thu_Kha_CV.pdf' 
   link.click()
 }
 
