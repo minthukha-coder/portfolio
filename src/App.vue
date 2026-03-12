@@ -301,10 +301,8 @@ const projects = ref([
 ])
 
 const downloadCV = () => {
-  const link = document.createElement('a')
-  link.href = '/cv/MinThuKha.pdf'
-  link.download = 'Min_Thu_Kha_CV.pdf' 
-  link.click()
+  window.open('/cv/MinThuKha.pdf', '_blank')
+
 }
 
 const handleNavClick = (id) => {
