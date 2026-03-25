@@ -125,7 +125,7 @@
     <!-- SKILLS -->
     <section class="my-skills my-5" id="my-skills">
       <div class="container">
-        <h1 class="text-center  mb-5" style="color:#FF8C32">My Skills</h1>
+        <h1 class="text-center fw-bold mb-5" style="color:#FF8C32">My Skills</h1>
 
         <div class="skill-wrapper">
           <div class="skill-track">
@@ -147,10 +147,9 @@
 
 
     <!-- PROJECTS -->
-    <section class="my-projects " id="my-projects">
+    <section class="my-projects" id="my-projects">
       <div class="container">
-        <h1 class="text-center mb-4" style="color:#FF8C32;">My Projects</h1>
-        <p class="text-center text-white text-xl">Explore my latest web development work</p>
+        <h1 class="text-center fw-bold mb-4" style="color:#FF8C32;">My Projects</h1>
 
         <div class="filter-buttons">
           <button class="filter-btn" :class="{ active: activeFilter === 'all' }"
@@ -161,29 +160,25 @@
             @click="filterProjects('web')">Web</button>
         </div>
 
-        <div class="row mt-3">
-          <div v-for="project in filteredProjects" :key="project.title" class="col-md-4 mb-4">
-            <div class="card project-card h-100" :data-category="project.category">
-              <div class="position-relative img-wrapper">
-                <img :src="project.image" class="card-img-top project-img"
-                  style="height:220px;object-fit:cover;object-position: center;" />
-
+        <div class="projects-grid">
+          <div v-for="(project, index) in filteredProjects" :key="project.title" class="project-card-wrapper" :style="{ animationDelay: `${index * 0.1}s` }">
+            <div class="project-card">
+              <div class="project-image-wrapper">
+                <img :src="project.image" class="project-image" alt="Project Image" />
               </div>
-              <div class="card-body">
-                <h5 class="fw-bold text-white">{{ project.title }}</h5>
-                <p class="fs-6">{{ project.description }}</p>
-                <div class="useage-group d-flex flex-wrap gap-2 mb-3">
-                  <button v-for="tech in project.tech" :key="tech" class="btn tech-tag">{{ tech }}</button>
+              <div class="project-content">
+                <h5 class="project-title">{{ project.title }}</h5>
+                <p class="project-description">{{ project.description }}</p>
+                <div class="project-tech">
+                  <span v-for="tech in project.tech" :key="tech" class="tech-tag">{{ tech }}</span>
                 </div>
-                <div class="card-footer border-0 d-flex justify-content-between p-0">
-                  <a v-if="project.demo != ''" :href="project.demo" target="_blank"><button class="btn1">
-                      <span v-if="project.category == 'web'">Live Demo</span>
-                      <span v-else-if="project.category == 'app'"><font-awesome-icon icon="fa-brands fa-google-play" />
-                        Play Store</span>
-                    </button></a>
-                  <a v-if="project.code != ''" :href="project.code" target="_blank"><button class="btn2">
-                      <font-awesome-icon icon="fa-brands fa-github" /> Code
-                    </button></a>
+                <div class="project-links">
+                  <a v-if="project.demo" :href="project.demo" target="_blank" class="project-link demo-link">
+                    <font-awesome-icon icon="fa-solid fa-link" /> Live Demo
+                  </a>
+                  <a v-if="project.code" :href="project.code" target="_blank" class="project-link code-link">
+                    <font-awesome-icon icon="fa-brands fa-github" /> Code
+                  </a>
                 </div>
               </div>
             </div>
@@ -388,7 +383,7 @@ const scrollTo = (id) => {
 }
 
 .about .about-content {
-  color: #fff;
+  color: #d8d8d8;
 }
 
 .about .about-content .btn {
@@ -491,123 +486,161 @@ const scrollTo = (id) => {
 
 .my-projects {
   background-color: #1f242d;
+  padding: 20px 0;
 }
 
 .my-projects .filter-buttons {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 15px;
   flex-wrap: wrap;
+  margin-bottom: 40px;
 }
 
 .my-projects .filter-btn {
-  padding: 8px 20px;
-  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 15px;
+  /* background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)); */
   color: white;
-  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
   text-transform: uppercase;
   letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
 }
 
 
 
 .filter-btn.active {
-  background: #FF8C32;
+  /* background: linear-gradient(135deg, #FF8C32, #FF6B35); */
   color: white;
-  border-color: white;
-  box-shadow: 0 5px 20px rgba(255, 255, 255, 0.4);
+  border-color: #FF8C32;
+  box-shadow: 0 8px 25px rgba(255, 140, 50, 0.4);
+  transform: translateY(-2px);
 }
 
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
 
+@media (min-width: 992px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
+.project-card-wrapper {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+  transform: translateY(30px);
+}
 
-.my-projects .img-wrapper {
-  width: 100%;
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.project-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 18px;
+  overflow: hidden;
+  backdrop-filter: blur(18px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.45);
+}
+
+.project-image-wrapper {
   height: 200px;
   overflow: hidden;
-
 }
 
-.my-projects .img-wrapper img {
+.project-image {
   width: 100%;
+  height: 100%;
   object-fit: cover;
-}
-
-.my-projects .project-img {
   transition: transform 0.3s ease;
-  /* smooth animation */
 }
 
-.my-projects .project-img:hover {
-  transform: scale(1.05);
-  /* slightly bigger on hover */
+.project-card:hover .project-image {
+  transform: scale(1.07);
 }
 
-.my-projects .card {
-  background-color: #778da9;
-  height: 400px;
+.project-content {
+  padding: 20px;
 }
 
-
-.my-projects .card-body h6 {
+.project-title {
   color: #fff;
-  font-size: 18px;
-  letter-spacing: 1px;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 10px;
 }
 
-.my-projects .card-body p {
-  color: #fff;
-  font-size: 14px;
-}
-
-.my-projects .card-body .btn {
-  /* width: 80px; */
-  font-size: 14px;
-  height: 27px;
-  line-height: 10px;
-  background-color: #1f242d;
-  border: 0px;
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  color: #fff;
-  margin: 2px;
-}
-
-.my-projects .card-footer {
-  padding: 0px;
-  margin-top: 10px;
-  background-color: #778da9;
-}
-
-.my-projects .card-footer .btn1 {
-  font-size: 14px;
-  padding: 5px 15px;
-  background-color: #1f242d;
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  border: 0px;
-  color: #fff;
-  margin: 0 3px;
-}
-
-.my-projects .card-footer .btn2 {
+.project-description {
+  color: #d8d8d8;
   font-size: 15px;
-  padding: 5px 15px;
-  background-color: #1f242d;
-  border-radius: 10px;
-  color: #fff;
-  margin: 0 3px;
+  margin-bottom: 16px;
+  min-height: 54px;
 }
 
-.my-projects .card-footer .btn2 i {
-  font-size: 20px;
-  margin: 0 5px;
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 15px;
 }
+
+.tech-tag {
+  background: rgba(255, 140, 50, 0.2);
+  border: 1px solid rgba(255, 140, 50, 0.5);
+  color: #fff;
+  border-radius: 12px;
+  padding: 5px 10px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.project-links {
+  display: flex;
+  gap: 10px;
+}
+
+.project-link {
+  flex: 1;
+  text-align: center;
+  padding: 8px 12px;
+  color: #fff;
+  background: rgba(255, 140, 50, 0.25);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 140, 50, 0.45);
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.project-link:hover {
+  background: rgba(255, 140, 50, 0.5);
+  transform: translateY(-2px);
+}
+
 
 .my-projects .slick-dots li button::before {
   color: #FF8C32;
@@ -641,7 +674,7 @@ const scrollTo = (id) => {
 }
 
 .contact-card h5 {
-  color: #ffffff;
+  color: #d8d8d8;
   font-weight: 600;
   margin-bottom: 8px;
 }
