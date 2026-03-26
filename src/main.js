@@ -9,13 +9,13 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 // Icons
-import { faUser, faHome, faCartShopping, faEnvelope,faPhone } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faHome, faCartShopping, faEnvelope,faPhone,faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 import { faLinkedin,faGithub,faGooglePlay } from '@fortawesome/free-brands-svg-icons'
 // Vue component
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faUser, faHome, faCartShopping, faEnvelope,faLinkedin,faGithub,faPhone,faGooglePlay)
+library.add(faUser, faHome, faCartShopping, faEnvelope,faLinkedin,faGithub,faPhone,faGooglePlay,faArrowRight)
 
 const app = createApp(App)
 

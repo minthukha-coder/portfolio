@@ -13,10 +13,9 @@
 
           <ul class="hidden lg:flex space-x-6">
             <li v-for="item in navs" :key="item.id">
-              <a href="#"
- :class="[
+              <a href="#" :class="[
                 'transition text-decoration-none font-bold',
-                navActive == item.id ? '!text-[#FF8C32]' : 'text-white'
+                navActive == item.id ? '!text-[#FFD700]' : 'text-white'
               ]" @click.prevent="scrollTo(item.id)">
                 {{ item.label }}
               </a>
@@ -30,9 +29,9 @@
         <ul class="space-y-3">
           <li v-for="item in navs" :key="item.id">
             <a href="#" class="block" :class="[
-                'transition text-decoration-none font-bold',
-                navActive == item.id ? '!text-[#FF8C32]' : 'text-white'
-              ]" @click.prevent="handleNavClick(item.id)">
+              'transition text-decoration-none font-bold',
+              navActive == item.id ? '!text-[#FFD700]' : 'text-white'
+            ]" @click.prevent="handleNavClick(item.id)">
               {{ item.label }}
             </a>
           </li>
@@ -43,32 +42,32 @@
 
     <!-- HOME -->
     <section class="home vh-90" id="home">
-      <div class="container">
-        <div class="grid grid-cols-1 md:grid-cols-2 place-items-center pt-5">
-          <div class="p-10 text-white justify-self-center">
-            <h1 class="fw-bold tracking-wider">Min Thu Kha</h1>
-            <h3 class="highlight tracking-wide fw-bold" style="color:#FF8C32">Web Developer</h3>
+      <div class="container home-inner">
+        <div class="hero-content text-center">
+          <h1 class="fw-bold tracking-wider">Min Thu Kha</h1>
+          <h3 class="highlight tracking-wide fw-bold">Web Developer</h3>
 
-            <div class="social-media">
-              <a href="mailto:minthukha25122003@gmail.com">
-                <font-awesome-icon icon="fa-solid fa-envelope" /> </a>
-              <a href="https://www.linkedin.com/in/min-thu-kha-407a472a4/" target="_blank">
-                <font-awesome-icon icon="fa-brands fa-linkedin" />
-              </a>
-              <a href="https://github.com/minthukha-coder" target="_blank">
-                <font-awesome-icon icon="fa-brands fa-github" />
-              </a>
-            </div>
+          <p class="subtitle">Laravel · Vue.js · Tailwind · REST APIs</p>
 
-            <a @click="downloadCV" class="btn mt-3">
-              Download CV
+          <div class="social-media mt-4">
+            <a href="mailto:minthukha25122003@gmail.com" aria-label="Email">
+              <font-awesome-icon icon="fa-solid fa-envelope" />
+            </a>
+            <a href="https://www.linkedin.com/in/min-thu-kha-407a472a4/" target="_blank" aria-label="LinkedIn">
+              <font-awesome-icon icon="fa-brands fa-linkedin" />
+            </a>
+            <a href="https://github.com/minthukha-coder" target="_blank" aria-label="GitHub">
+              <font-awesome-icon icon="fa-brands fa-github" />
             </a>
           </div>
 
-          <div class="hidden md:flex justify-center">
-            <img src="/images/cartoon.png" class="profile-img" />
-          </div>
+          <a @click="downloadCV" class="btn mt-5">Download CV</a>
         </div>
+
+        <!-- <div class="scroll-bottom" @click="scrollTo('about')" role="button" tabindex="0">
+          <span>Scroll</span>
+          <div class="arrow"></div>
+        </div> -->
       </div>
     </section>
 
@@ -105,7 +104,7 @@
           <div class="col-md-6">
             <div class="about-content">
               <div class="content-header d-md-flex position-relative mt-5 ">
-                <h1 class="text-center text-md-start text-lg-start fw-bold" style="color:#FF8C32;">Who am I?</h1>
+                <h1 class="text-center text-md-start text-lg-start fw-bold" style="color:#FFD700;">Who am I?</h1>
 
               </div>
               <h5 style="line-height:30px;" class="mt-3">
@@ -125,7 +124,7 @@
     <!-- SKILLS -->
     <section class="my-skills my-5" id="my-skills">
       <div class="container">
-        <h1 class="text-center fw-bold mb-5" style="color:#FF8C32">My Skills</h1>
+        <h1 class="text-center fw-bold mb-5" style="color:#FFD700">My Skills</h1>
 
         <div class="skill-wrapper">
           <div class="skill-track">
@@ -149,7 +148,7 @@
     <!-- PROJECTS -->
     <section class="my-projects" id="my-projects">
       <div class="container">
-        <h1 class="text-center fw-bold mb-4" style="color:#FF8C32;">My Projects</h1>
+        <h1 class="text-center fw-bold mb-4" style="color:#FFD700;">My Projects</h1>
 
         <div class="filter-buttons">
           <button class="filter-btn" :class="{ active: activeFilter === 'all' }"
@@ -161,25 +160,30 @@
         </div>
 
         <div class="projects-grid">
-          <div v-for="(project, index) in filteredProjects" :key="project.title" class="project-card-wrapper" :style="{ animationDelay: `${index * 0.1}s` }">
+          <div v-for="(project, index) in filteredProjects" :key="project.title" class="project-card-wrapper"
+            :style="{ animationDelay: `${index * 0.1}s` }">
             <div class="project-card">
-              <div class="project-image-wrapper">
-                <img :src="project.image" class="project-image" alt="Project Image" />
+              <div class="project-card-top">
+                <div class="project-card-icon">
+                  <img :src="project.image" alt="Project logo" class="rounded-md"/>
+                </div>
+                <div class="project-card-tags">
+                  <span v-for="tech in project.tech" :key="tech" class="tag">{{ tech }}</span>
+                </div>
               </div>
+
               <div class="project-content">
                 <h5 class="project-title">{{ project.title }}</h5>
                 <p class="project-description">{{ project.description }}</p>
-                <div class="project-tech">
-                  <span v-for="tech in project.tech" :key="tech" class="tech-tag">{{ tech }}</span>
-                </div>
-                <div class="project-links">
-                  <a v-if="project.demo" :href="project.demo" target="_blank" class="project-link demo-link">
-                    <font-awesome-icon icon="fa-solid fa-link" /> Live Demo
-                  </a>
-                  <a v-if="project.code" :href="project.code" target="_blank" class="project-link code-link">
-                    <font-awesome-icon icon="fa-brands fa-github" /> Code
-                  </a>
-                </div>
+              </div>
+
+              <div class="project-links">
+                <a v-if="project.code" :href="project.code" target="_blank" class="project-link code-link">
+                  <font-awesome-icon icon="fa-brands fa-github" /> Github
+                </a>
+                <a v-if="project.demo" :href="project.demo" target="_blank" class="project-link demo-link">
+                  Live Demo <font-awesome-icon icon="fa-solid fa-arrow-right" />
+                </a>
               </div>
             </div>
           </div>
@@ -191,7 +195,7 @@
     <!-- Contact -->
     <section class="contact" id="contact">
       <div class="container">
-        <h2 class="fw-bold text-center mb-5 " style="color:#FF8C32">Contact Me</h2>
+        <h2 class="fw-bold text-center mb-5 " style="color:#FFD700">Contact Me</h2>
 
         <div class="row justify-content-center">
           <!-- Email -->
@@ -216,7 +220,7 @@
             </div>
           </div>
 
-        
+
         </div>
       </div>
     </section>
@@ -256,16 +260,16 @@ const skills = [
 const projects = ref([
   {
     title: 'Love Car',
-    image: '/images/lovecar_image.png',
+    image: '/images/lovecar.jpg',
     description: 'A mobile application for car enthusiasts to find and share their love for cars. Available on Google Play Store.',
-    tech: ['Laravel', 'Vue.js', 'Tailwind'],
+    tech: ['HTML', 'CSS', 'Laravel', 'Vue.js', 'Tailwind'],
     demo: 'https://play.google.com/store/apps/details?id=com.ophir.lovecar&pcampaignid=web_share',
     code: '',
     category: 'app'
   },
   {
     title: 'Aung Academy Language School',
-    image: '/images/aals_home.png',
+    image: '/images/aals.jpg',
     description: 'A comprehensive language learning platform with course management, student enrollment, and progress tracking features.',
     tech: ['HTML', 'CSS', 'Laravel', 'Vue.js', 'Tailwind'],
     demo: 'https://aals.aungacademylanguageschool.com/',
@@ -273,9 +277,9 @@ const projects = ref([
     category: 'web'
   },
 
-    {
+  {
     title: 'Learning Management System',
-    image: '/images/sayazaw.png',
+    image: '/images/sayazaw.jpg',
     description: 'A mobile-friendly learning platform delivering video lessons, deployed on DigitalOcean.',
     tech: ['HTML', 'CSS', 'Laravel', 'Vue.js', 'Tailwind'],
     demo: 'https://mathssayazaw.online/',
@@ -287,7 +291,7 @@ const projects = ref([
     title: 'Sephora Ecommerce Website',
     image: '/images/sephora.png',
     description: 'This project is a fully functional fashion eCommerce website designed to provide a seamless online shopping experience for customers.',
-    tech: ['Laravel', 'Vue.js', 'Tailwind'],
+    tech: ['HTML', 'CSS', 'Laravel', 'Vue.js', 'Tailwind'],
     demo: '',
     code: 'https://github.com/BeBeeTheBoss/sephora.git',
     category: 'web'
@@ -331,23 +335,148 @@ const scrollTo = (id) => {
 
 <style scoped>
 .main {
-  background: #1f242d;
+  background: linear-gradient(135deg, #8B0000, #1f242d);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.home {
+  min-height: calc(100vh - 64px);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-inner {
+  width: min(100%, 1150px);
+  margin: 0 auto;
+  padding: 40px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hero-content {
+  max-width: 720px;
+}
+
+.hero-content h1 {
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  color: #fff;
+  font-weight: 700;
+}
+
+.hero-content h3 {
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  color: #FFD700;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin-top: 14px;
+  color: #cfd8dc;
+  font-size: 1.05rem;
+  font-weight: 400;
+}
+
+.scroll-bottom {
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  color: #FFD700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 
+.scroll-arrow {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #8B5CF6;
+  font-weight: 700;
+  cursor: pointer;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 999px;
+  border: 2px solid rgba(139,92,246,0.5);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.scroll-arrow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139,92,246,0.35);
+}
+
+.scroll-arrow span {
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+.arrow {
+  width: 2px;
+  height: 28px;
+  background-color: #8B5CF6;
+  position: relative;
+  animation: arrowMove 1.2s infinite;
+}
+
+.arrow::before,
+.arrow::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 2px;
+  background-color: #8B5CF6;
+  left: -5px;
+}
+
+.arrow::before {
+  top: 18px;
+  transform: rotate(45deg);
+}
+
+.arrow::after {
+  top: 18px;
+  transform: rotate(-45deg);
+}
+
+@keyframes arrowMove {
+  0%, 100% { transform: translateY(0); opacity: 0.8; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
 
 .home .btn {
   display: inline-block;
   padding: 12px 28px;
-  background-color: dark;
+  background-color: #FFD700;
   border-radius: 40px;
   text-decoration: none;
   letter-spacing: 1px;
   font-weight: 700;
   font-size: 16px;
-  box-shadow: 0 0 15px #F97316;
+  box-shadow: 0 0 15px rgba(139,92,246,0.8);
   color: #ffffff;
 }
+
+.home .btn:hover {
+  background-color: #FFA500;
+}
+
+.home .btn:hover {
+  background-color: #FFA500;
+}
+
 
 .home .social-media a {
   display: inline-block;
@@ -360,20 +489,79 @@ const scrollTo = (id) => {
   border-radius: 50%;
   background: transparent;
   text-decoration: none;
-  border: 2px solid #FF8C32;
-  color: #FF8C32;
+  border: 2px solid #FFD700;
+  color: #FFD700;
   margin: 20px 15px 30px 0;
 }
 
 .home .social-media a:hover {
-  background-color: #FF8C32;
-  box-shadow: 0 0 20px #FF8C32;
+  background-color: #FFD700;
+  box-shadow: 0 0 20px #FFD700;
   color: #1f242d;
+}
+
+.scroll-arrow {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #8B5CF6;
+  font-weight: 700;
+  cursor: pointer;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 999px;
+  border: 2px solid rgba(139,92,246,0.5);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.scroll-arrow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139,92,246,0.35);
+}
+
+.scroll-arrow span {
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+.arrow {
+  width: 2px;
+  height: 28px;
+  background-color: #8B5CF6;
+  position: relative;
+  animation: arrowMove 1.2s infinite;
+}
+
+.arrow::before,
+.arrow::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 2px;
+  background-color: #8B5CF6;
+  left: -5px;
+}
+
+.arrow::before {
+  top: 18px;
+  transform: rotate(45deg);
+}
+
+.arrow::after {
+  top: 18px;
+  transform: rotate(-45deg);
+}
+
+@keyframes arrowMove {
+  0%, 100% { transform: translateY(0); opacity: 0.8; }
+  50% { transform: translateY(8px); opacity: 1; }
 }
 
 .logo {
   letter-spacing: 5px;
-  color: #FF8C32;
+  color: #FFD700;
   font-weight: bold;
   cursor: pointer;
 }
@@ -389,19 +577,19 @@ const scrollTo = (id) => {
 .about .about-content .btn {
   display: inline-block;
   padding: 12px 28px;
-  background-color: #FF8C32;
+  background-color: #FFD700;
   border-radius: 40px;
   text-decoration: none;
   letter-spacing: 1px;
   font-weight: 700;
   font-size: 16px;
-  box-shadow: 0 0 15px #FF8C32;
+  box-shadow: 0 0 15px #FFD700;
   color: #1f242d;
 }
 
 .about .about-content .btn:hover {
   background-color: #1f242d;
-  box-shadow: 0 0 20px #FF8C32;
+  box-shadow: 0 0 20px #FFD700;
   color: #fff;
 }
 
@@ -425,7 +613,7 @@ const scrollTo = (id) => {
 
 
 .highlight {
-  color: #FF8C32;
+  color: #FFD700;
 }
 
 .profile-img {
@@ -433,7 +621,7 @@ const scrollTo = (id) => {
 }
 
 .social-media a {
-  color: #FF8C32;
+  color: #FFD700;
   font-size: 20px;
   margin-right: 15px;
 }
@@ -516,10 +704,9 @@ const scrollTo = (id) => {
 
 
 .filter-btn.active {
-  /* background: linear-gradient(135deg, #FF8C32, #FF6B35); */
+  /* background: linear-gradient(135deg, #8B5CF6, #FF6B35); */
   color: white;
-  border-color: #FF8C32;
-  box-shadow: 0 8px 25px rgba(255, 140, 50, 0.4);
+  border-color: #FFD700;
   transform: translateY(-2px);
 }
 
@@ -551,17 +738,108 @@ const scrollTo = (id) => {
 }
 
 .project-card {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(10, 15, 24, 0.82);
+  border: 1px solid rgba(80, 90, 110, 0.45);
   border-radius: 18px;
   overflow: hidden;
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(14px);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.45);
 }
 
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.55);
+}
+
+.project-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16px;
+}
+
+.project-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.35);
+}
+
+.project-card-icon img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.project-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  background: rgba(255, 255, 255, 0.06);
+  color: #cbd5e1;
+  border: 1px solid rgba(130, 155, 190, 0.35);
+  border-radius: 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 5px 8px;
+}
+
+.project-content {
+  padding: 0 16px 16px;
+}
+
+.project-title {
+  color: #ffffff;
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.project-description {
+  color: rgba(220, 230, 240, 0.8);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  min-height: 62px;
+}
+
+.project-links {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 10px 16px 16px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #a5b4fc;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.93rem;
+}
+
+.project-link:hover {
+  color: #FFD700;
+}
+
+.project-link.code-link {
+  color: #94a3b8;
+}
+
+.project-link.demo-link {
+  color: #c084fc;
+}
 .project-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 20px 35px rgba(0, 0, 0, 0.45);
@@ -618,44 +896,20 @@ const scrollTo = (id) => {
   font-weight: 500;
 }
 
-.project-links {
-  display: flex;
-  gap: 10px;
-}
 
 .project-link {
-  flex: 1;
-  text-align: center;
-  padding: 8px 12px;
   color: #fff;
-  background: rgba(255, 140, 50, 0.25);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 140, 50, 0.45);
   text-decoration: none;
-  font-weight: 600;
-  transition: background 0.25s ease, transform 0.25s ease;
+
 }
 
-.project-link:hover {
-  background: rgba(255, 140, 50, 0.5);
-  transform: translateY(-2px);
-}
-
-
-.my-projects .slick-dots li button::before {
-  color: #FF8C32;
-}
-
-.my-projects .slick-dots .slick-active button::before {
-  color: #fff;
-}
 
 .contact {
   padding: 50px 0;
 }
 
 .contact-card {
-  background: rgba(30, 41, 59, 0.9);
+  background: rgba(255, 255, 255, 0.08);
   padding: 45px 30px;
   border-radius: 18px;
   transition: all 0.35s ease;
@@ -664,12 +918,12 @@ const scrollTo = (id) => {
 
 .contact-card:hover {
   transform: translateY(-12px);
-  box-shadow: 0 10px 10px #FF8C32;
+  box-shadow: 0 5px 5px #8B5CF6;
 }
 
 .contact-icon {
   font-size: 42px;
-  color: #FF8C32;
+  color: #FFD700;
   margin-bottom: 18px;
 }
 
@@ -686,6 +940,6 @@ const scrollTo = (id) => {
 }
 
 .contact-link:hover {
-  color: #FF8C32;
+  color: #FFD700;
 }
 </style>
